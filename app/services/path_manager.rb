@@ -46,28 +46,4 @@ class PathManager
   private
 
   attr_reader :generic_fixtures, :controller_fixtures
-
-  def vcr_fixture?(path)
-    path.include?('vcr_cassettes')
-  end
-
-  def vcr_spec_path(path)
-    path = path.split('/')
-    p vcr_lambdas[cassette_type(path)]
-
-    { controller: 'hello', integration: 'bye' }
-  end
-
-  def cassette_type(path)
-    path[path.index('vcr_cassettes') + 1].split(/(?=[A-Z])/).last.to_sym
-  end
-
-  def vcr_lambdas
-    { Controller: lambda { |path| vcr_controller_spec_paths(path) } }
-
-  end
-
-  def vcr_controller_spec_paths(path)
-
-  end
 end

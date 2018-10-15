@@ -26,16 +26,32 @@ RSpec.describe FixturePaths::ControllerFixtures do
   context '#spec_and_fixture' do
     let(:root) { __dir__.chomp('spec/services/fixture_paths') }
 
-    it 'calls the correct method on path manager with the correct arguments' do
-      path = 'spec/fixtures/controllers/groups_controller/index/fixture.yml'
-      spec_path = root + 'spec/integration/controllers/groups_controller_spec.rb'
+    context 'when it is a controller spec' do
+      it 'calls the correct method on path manager with the correct arguments' do
+        path = 'spec/fixtures/controllers/groups_controller/index/fixture.yml'
+        spec_path = root + 'spec/integration/controllers/groups_controller_spec.rb'
 
-      allow(path_manager_double).to receive(:spec_fixture_hash)
-      allow(path_manager_double).to receive(:full_path) { root + 'spec/controllers/groups_controller/index/fixture.yml' }
+        allow(path_manager_double).to receive(:spec_fixture_hash)
+        allow(path_manager_double).to receive(:full_path) { root + 'spec/controllers/groups_controller/index/fixture.yml' }
 
-      subject.spec_and_fixture(path)
+        subject.spec_and_fixture(path)
 
-      expect(path_manager_double).to have_received(:spec_fixture_hash).with(spec_path, 'fixture_name', path, controller_method: 'index')
+        expect(path_manager_double).to have_received(:spec_fixture_hash).with(spec_path, 'fixture_name', path, controller_method: 'index')
+      end
+    end
+
+    context 'when it is a helper in concerns' do
+      it 'calls the correct method on path manager with the correct arguments' do
+        path = 'spec/fixtures/controllers/concerns/pagination_helper/create_number_cards.yml'
+        spec_path = root + 'spec/controllers/concerns/pagination_helper_spec.rb'
+
+        allow(path_manager_double).to receive(:spec_fixture_hash)
+        allow(path_manager_double).to receive(:full_path) { root + 'spec/controllers/concerns/pagination_helper/create_number_cards.yml' }
+
+        subject.spec_and_fixture(path)
+
+        expect(path_manager_double).to have_received(:spec_fixture_hash).with(spec_path, 'fixture_name', path, controller_method: nil)
+      end
     end
   end
 end
