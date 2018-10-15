@@ -1,4 +1,7 @@
 require 'optparse'
+require_relative '../../app/services/fixture_paths/generic_fixtures'
+require_relative '../../app/services/fixture_paths/controller_fixtures'
+require_relative '../../app/services/path_manager'
 require_relative '../../app/services/fixture_sweeper'
 
 desc 'Delete unused fixture files and folders'

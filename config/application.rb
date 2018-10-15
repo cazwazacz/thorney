@@ -34,10 +34,10 @@ module Thorney
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Add our custom validators to our autoload paths
+    # Add our custom validators to our autoload fixture_paths
     config.autoload_paths += %W["#{config.root}/app/validators/"]
 
-    # Add out custom serializers to our autoload paths
+    # Add out custom serializers to our autoload fixture_paths
     config.autoload_paths += %W["#{config.root}/app/serializers/"]
 
     # Only loads a smaller set of middleware suitable for API only apps.
